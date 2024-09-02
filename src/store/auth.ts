@@ -14,8 +14,8 @@ const state: AuthState = {
 
 const mutations = {
   SET_USER(state: AuthState, user: User | null) {
-    state.user = user
-    state.isLoggedIn = !!user
+    state.user = user;
+    state.isLoggedIn = !!user;
   }
 }
 

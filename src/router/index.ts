@@ -36,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Statistics',
     component: Statistics,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/login', // 添加 /login 路径
+    name: 'Login',
+    component: Auth
   }
 ]
 

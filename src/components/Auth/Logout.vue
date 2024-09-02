@@ -12,7 +12,7 @@ const router = useRouter();
 const logout = async () => {
   try {
     await store.dispatch('auth/logout');
-    router.push('/login');
+    router.push('/auth'); // 修改为 /auth 路径
   } catch (error) {
     console.error('登出失败:', error);
   }

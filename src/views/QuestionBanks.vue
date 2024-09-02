@@ -1,7 +1,6 @@
 <template>
   <div class="question-banks">
     <h1>题库列表</h1>
-    <BankSelection :banks="questionBanks" />
     <BankList :banks="questionBanks" @select-bank="selectBank" />
   </div>
 </template>
@@ -11,7 +10,6 @@ import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import BankList from '../components/QuestionBank/BankList.vue';
-import BankSelection from '../components/QuestionBank/BankSelection.vue';
 
 const store = useStore();
 const router = useRouter();

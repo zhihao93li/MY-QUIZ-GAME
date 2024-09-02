@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "server": "nodemon --exec ts-node server/index.ts",
-    "seed": "ts-node server/scripts/seedQuestionBanks.ts" 
+    "seed": "ts-node server/scripts/seedQuestionBanks.ts"
   },
   "dependencies": {
     "axios": "^1.7.7",
@@ -21,7 +21,8 @@
     "mongoose": "^6.0.12",
     "vue": "^3.4.37",
     "vue-router": "^4.4.3",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
