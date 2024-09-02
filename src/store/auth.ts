@@ -1,5 +1,5 @@
 import { auth, googleProvider } from '../services/firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, onAuthStateChanged } from 'firebase/auth'
 import { signInWithPopup } from 'firebase/auth'
 
 interface AuthState {
@@ -56,6 +56,11 @@ const actions = {
       console.error('Google 登录失败:', error);
       throw error;
     }
+  },
+  async subscribeToAuthChanges({ commit }) {
+    onAuthStateChanged(auth, (user) => {
+      commit('SET_USER', user);
+    });
   },
 }
 

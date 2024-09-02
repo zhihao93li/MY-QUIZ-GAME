@@ -7,19 +7,12 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import './assets/styles/main.css'
 
-let app: ReturnType<typeof createApp> | null = null;
+const app = createApp(App)
 
-auth.onAuthStateChanged(user => {
-  if (user) {
-    store.commit('auth/SET_USER', user);
-  } else {
-    store.commit('auth/SET_USER', null);
-  }
+app.use(store)
+app.use(router)
+app.use(ElementPlus)
 
-  if (!app) {
-    app = createApp(App);
-    app.use(store);
-    app.use(router);
-    app.mount('#app');
-  }
-});
+store.dispatch('auth/subscribeToAuthChanges')
+
+app.mount('#app')

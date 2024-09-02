@@ -6,6 +6,7 @@ import QuestionBanks from '../views/QuestionBanks.vue'
 import Quiz from '../views/Quiz.vue'
 import Statistics from '../views/Statistics.vue'
 import { auth } from '../services/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -38,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/login', // 添加 /login 路径
+    path: '/login',
     name: 'Login',
     component: Auth
   }
@@ -49,15 +50,31 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const isAuthenticated = auth.currentUser
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const removeListener = onAuthStateChanged(
+      auth,
+      (user) => {
+        removeListener();
+        resolve(user);
+      },
+      reject
+    )
+  })
+}
 
-  if (requiresAuth && !isAuthenticated) {
-    next('/auth')
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  if (requiresAuth) {
+    const currentUser = await getCurrentUser();
+    if (!currentUser) {
+      next('/auth');
+    } else {
+      next();
+    }
   } else {
-    next()
+    next();
   }
-})
+});
 
 export default router
